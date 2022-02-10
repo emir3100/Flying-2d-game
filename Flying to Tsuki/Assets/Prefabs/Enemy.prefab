@@ -95,7 +95,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 830199e25209dda40a7d77e5c5c99944, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -119,7 +119,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   HitEffect: {fileID: 5613591719707112696, guid: 9dfc0917633915a44bb358f2020eba38, type: 3}
-  OtherTarget: {fileID: 0}
   PlayerDeath: {fileID: 8300000, guid: 1d5e15caa8651b24baf9f3845b054c61, type: 3}
   HitSound: {fileID: 8300000, guid: f578768c37012de479f8bb0cb4ae72bb, type: 3}
 --- !u!50 &5679366479953540493

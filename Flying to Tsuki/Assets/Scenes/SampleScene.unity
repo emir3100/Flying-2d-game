@@ -419,7 +419,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1.2774048, y: -9.89}
+  m_AnchoredPosition: {x: 1.2774048, y: -9.890015}
   m_SizeDelta: {x: 133.3793, y: 124.2341}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1012948083
@@ -595,7 +595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213650529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.96, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1489264490}
@@ -616,6 +616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletPrefab: {fileID: 2740155207041102895, guid: ddd939bd5474b39488391c00fdb6d28f, type: 3}
   BulletForce: 6
+  FireRate: 2
   BulletSound: {fileID: 8300000, guid: 53d8b162e38727d42953fa0bb47832df, type: 3}
 --- !u!58 &1213650536
 CircleCollider2D:
@@ -1000,10 +1001,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Points: 0
   PointsText: {fileID: 1012948083}
-  EnemySpawnRate: 2
-  PointDifficultyIncrease: 5
+  MaxSpawnSimultaneously: 1
+  EnemySpawnRate: 4
+  PointsThreshold: 2
   SpawnArea: {fileID: 1970554885}
-  Enemy: {fileID: 5679366479953540499, guid: 54d60b730f22c4942bb7413b4ab7c525, type: 3}
+  EnemyPrefab: {fileID: 5679366479953540499, guid: 54d60b730f22c4942bb7413b4ab7c525, type: 3}
   PlayerDead: 0
   AudioSource: {fileID: 0}
 --- !u!82 &1790930255
@@ -1119,8 +1121,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &1970554885
-BoxCollider2D:
+--- !u!60 &1970554885
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1132,7 +1134,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.46123683, y: 1.1906343}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1142,9 +1144,22 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 5.569463, y: 0.9356408}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -8.570473, y: 3.9480848}
+      - {x: -10.316433, y: 0.26970246}
+      - {x: -10.506432, y: -9.811923}
+      - {x: 12.57098, y: -10.375829}
+      - {x: 11.317361, y: -7.3504972}
+      - {x: 10.958891, y: 1.4614646}
+      - {x: 9.497083, y: 1.3921664}
+      - {x: 9.933821, y: -8.357146}
+      - {x: -8.380603, y: -8.629692}
+      - {x: -8.495932, y: 1.6744945}
+      - {x: 4.4551096, y: 1.8436389}
+      - {x: 9.371046, y: 1.6796899}
+      - {x: 9.282778, y: 2.7160943}
+      - {x: 9.256515, y: 4.092061}
 --- !u!4 &1970554886
 Transform:
   m_ObjectHideFlags: 0

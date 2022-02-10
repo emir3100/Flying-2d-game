@@ -7,18 +7,21 @@ using static UnityEngine.GraphicsBuffer;
 public class GameManager : MonoBehaviour
 {
     public int Points = 0;
-    public Text PointsText; 
+    public Text PointsText;
+
+    public int MaxSpawnSimultaneously;
     public float EnemySpawnRate;
-    public int PointDifficultyIncrease;
+    public int PointsThreshold;
     public Collider2D SpawnArea;
-    public GameObject Enemy;
+    public GameObject EnemyPrefab;
     public bool PlayerDead = false;
 
     private float nextSpawn;
     [HideInInspector]
     public AudioSource AudioSource;
     private Transform player;
-    
+    private float oldEnemySpawnRate;
+
     private static GameManager instance;
     public static GameManager Instance
     {
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
     {
         AudioSource = GetComponent<AudioSource>();
         player = GameObject.FindWithTag("Player").transform;
+        oldEnemySpawnRate = EnemySpawnRate;
     }
 
     private void Update()
@@ -45,12 +49,18 @@ public class GameManager : MonoBehaviour
             if (Time.time > nextSpawn)
             {
                 nextSpawn = Time.time + EnemySpawnRate;
-                Instantiate(Enemy, RandomPointInBounds(SpawnArea), Quaternion.identity);
+
+                for (int i = 0; i < GetRamdomAmount(MaxSpawnSimultaneously); i++)
+                {
+                    Instantiate(EnemyPrefab, RandomPointInBounds(SpawnArea), Quaternion.identity);
+                }
+                IncreaseDifficulty();
             }
         }
+        
     }
-        public Vector3 RandomPointInBounds(Collider2D spawnArea)
-        {
+    private Vector3 RandomPointInBounds(Collider2D spawnArea)
+    {
         var bounds = spawnArea.bounds;
         var center = bounds.center;
 
@@ -63,5 +73,27 @@ public class GameManager : MonoBehaviour
         } while (Physics2D.OverlapPoint(new Vector2(x, y), LayerMask.NameToLayer("Area")) == null);
 
         return new Vector3(x, y, 0);
+    }
+
+    public void IncreaseDifficulty()
+    {
+        if (MaxSpawnSimultaneously >= 20)
+            MaxSpawnSimultaneously = 3;
+
+        if (EnemySpawnRate <= 0)
+            EnemySpawnRate = oldEnemySpawnRate;
+
+        if (Points >= PointsThreshold)
+        {
+            Debug.Log("Increased Difficulty");
+            EnemySpawnRate = EnemySpawnRate / 1.02f;
+            PointsThreshold += 2;
+            MaxSpawnSimultaneously++;
+        }
+    }   
+
+    private int GetRamdomAmount(int maxSpawnSimultaneously)
+    {
+        return Random.Range(1, maxSpawnSimultaneously + 1);
     }
 }

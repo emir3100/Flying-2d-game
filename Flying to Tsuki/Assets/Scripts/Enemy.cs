@@ -16,8 +16,18 @@ public class Enemy : MonoBehaviour
     
     private Transform otherTarget;
     private Transform target;
-    private static bool playerDead;  
+    private static bool playerDead;
 
+    private static Enemy instance;
+    public static Enemy Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = GameObject.FindObjectOfType<Enemy>();
+            return instance;
+        }
+    }
 
     private void Start()
     {
