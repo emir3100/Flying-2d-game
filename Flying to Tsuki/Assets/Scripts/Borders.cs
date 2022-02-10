@@ -27,9 +27,6 @@ public class Borders : MonoBehaviour
         Vector2 leftBottomCorner = playerCamera.ViewportToWorldPoint(Vector3.zero);
         Vector2 rightTopCorner = playerCamera.ViewportToWorldPoint(Vector3.one);
 
-        Debug.LogWarning(leftBottomCorner);
-        Debug.Log(rightTopCorner);
-
         left.transform.position = new Vector2(
             leftBottomCorner.x - 0.5f,
             playerCamera.transform.position.y
