@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.U2D.IK;
 
 public class Enemy : MonoBehaviour
 {
@@ -67,15 +68,17 @@ public class Enemy : MonoBehaviour
     {
         GameManager.Instance.AudioSource.PlayOneShot(PlayerDeath);
         GameManager.Instance.AudioSource.PlayOneShot(HitSound);
-        Instantiate(HitEffect, transform.position, Quaternion.identity);
         Destroy(HitEffect.gameObject, 5f);
         player.GetComponent<Player>().enabled = false;
         player.GetComponent<Shooting>().enabled = false;
-        player.GetComponent<SpriteRenderer>().enabled = false;
         player.GetComponent<CapsuleCollider2D>().enabled = false;
         player.GetComponent<CircleCollider2D>().enabled = false;
-        player.gameObject.transform.GetChild(0).gameObject.transform.GetComponent<TrailRenderer>().enabled = false;
+        player.GetComponent<IKManager2D>().enabled = false;
+        player.GetComponent<Animator>().enabled = false;
+        foreach(Transform child in player.transform)
+            child.gameObject.SetActive(false);
         GameManager.Instance.PlayerDead = true;
+        Instantiate(HitEffect, transform.position, Quaternion.identity);
         playerDead = true;
     }
 }
