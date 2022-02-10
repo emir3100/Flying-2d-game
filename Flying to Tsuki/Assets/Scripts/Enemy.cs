@@ -80,5 +80,8 @@ public class Enemy : MonoBehaviour
         GameManager.Instance.PlayerDead = true;
         Instantiate(HitEffect, transform.position, Quaternion.identity);
         playerDead = true;
+        GameManager.Instance.StartCoroutine(GameManager.Instance.ShowMenu());
     }
+
+
 }

@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class GameManager : MonoBehaviour
 {
     public int Points = 0;
+    private int highScore;
     public Text PointsText;
+    public Text MenuScoreText;
+    public Text MenuHighestScoreText;
+    public GameObject Menu;
 
     public int MaxSpawnSimultaneously;
     public float EnemySpawnRate;
@@ -38,6 +43,7 @@ public class GameManager : MonoBehaviour
         AudioSource = GetComponent<AudioSource>();
         player = GameObject.FindWithTag("Player").transform;
         oldEnemySpawnRate = EnemySpawnRate;
+        Menu.SetActive(false);
     }
 
     private void Update()
@@ -95,5 +101,32 @@ public class GameManager : MonoBehaviour
     private int GetRamdomAmount(int maxSpawnSimultaneously)
     {
         return Random.Range(1, maxSpawnSimultaneously + 1);
+    }
+
+    public IEnumerator ShowMenu(float length = 1.5f)
+    {
+        yield return new WaitForSeconds(length);
+
+        highScore = Points;
+        if (PlayerPrefs.GetInt("hs") <= highScore)
+            PlayerPrefs.SetInt("hs", highScore);
+
+        Menu.SetActive(true);
+        PointsText.enabled = false;
+        MenuScoreText.text = $"SCORE: {Points}";
+        MenuHighestScoreText.text = $"BEST: {PlayerPrefs.GetInt("hs").ToString()}";
+
+    }
+
+    public void RestartButton()
+    {
+        int i = SceneManager.GetActiveScene().buildIndex;
+        Application.LoadLevel(i);
+    }
+
+    public void MenuButton()
+    {
+        int i = SceneManager.GetActiveScene().buildIndex;
+        Application.LoadLevel(i);
     }
 }
