@@ -660,6 +660,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &501575343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501575340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76aa3a02b6ace424d8e4071980c370b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &503855265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,6 +1743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14954e977e102324586f3c2501a23381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpawnEnemy: 0
   Points: 0
   PointsText: {fileID: 1012948083}
   MenuScoreText: {fileID: 1340366044}

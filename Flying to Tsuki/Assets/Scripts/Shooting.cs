@@ -17,10 +17,12 @@ public class Shooting : MonoBehaviour
     private float nextTimeToShoot = 0f;
     private Rigidbody2D rb;
     public bool canShoot;
+    private Vector2 shootPos;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
     }
 
     private void Update()
@@ -38,9 +40,10 @@ public class Shooting : MonoBehaviour
     private void Shoot()
     {
         GameManager.Instance.AudioSource.PlayOneShot(BulletSound);
-        shootDirection = Input.mousePosition;
+        shootDirection = shootPos;
         shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
         shootDirection = shootDirection - rb.position;
+        shootDirection = shootDirection.normalized;
 
         var bulletInstance = Instantiate(BulletPrefab.GetComponent<Rigidbody2D>(), transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
         bulletInstance.velocity = new Vector2(shootDirection.x * BulletForce, shootDirection.y * BulletForce);
@@ -48,6 +51,17 @@ public class Shooting : MonoBehaviour
 
     private void FixedUpdate()
     {
+        canShoot = false;
+        var touches = Input.touches.Where(x => x.fingerId != JoystickTouch.FirstTriggerId);
+        
+        if (touches.Count() > 0) 
+        {
+            canShoot = true;
+            shootPos = touches.First().position;
+        }
+
+
+
         //if (Input.touchCount > 0)
         //{
 
@@ -60,7 +74,7 @@ public class Shooting : MonoBehaviour
         //    if (EventSystem.current.IsPointerOverGameObject(finger2.fingerId) && !EventSystem.current.IsPointerOverGameObject(finger1.fingerId))
         //        canShoot = false;
         //    else
-        //        canShoot = true;
+        //        canShoot = true; YES
 
         //    if (finger2.phase == TouchPhase.Ended)
         //        canShoot = false;
