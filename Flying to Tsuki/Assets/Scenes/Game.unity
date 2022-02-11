@@ -1612,11 +1612,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Points: 0
-  PointsText: {fileID: 0}
+  PointsText: {fileID: 1012948083}
   MenuScoreText: {fileID: 1340366044}
   MenuHighestScoreText: {fileID: 1112146494}
   Menu: {fileID: 5006769}
-  MainMenu: {fileID: 0}
   MaxSpawnSimultaneously: 1
   EnemySpawnRate: 4
   PointsThreshold: 2

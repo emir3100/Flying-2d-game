@@ -12,12 +12,14 @@ public class Enemy : MonoBehaviour
     public LayerMask PlayerLayer;
     public GameObject HitEffect;
 
+
     public AudioClip PlayerDeath;
     public AudioClip HitSound;
     
     private Transform otherTarget;
     private Transform target;
     private static bool playerDead;
+    private Rigidbody2D rb;
 
     private static Enemy instance;
     public static Enemy Instance
@@ -35,6 +37,7 @@ public class Enemy : MonoBehaviour
         target = GameObject.FindWithTag("Player").transform;
         otherTarget = GameObject.FindWithTag("OtherTarget").transform;
         playerDead = GameManager.Instance.PlayerDead;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -47,11 +50,17 @@ public class Enemy : MonoBehaviour
         float step = MoveSpeed * Time.deltaTime;
 
         if (!playerDead)
+        {
             transform.position = Vector2.MoveTowards(transform.position, target.position, step);
+            Vector3 direction = target.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            rb.rotation = angle;
+        }
         else
         {
             this.gameObject.GetComponent<Collider2D>().isTrigger = true;
             transform.position = Vector2.MoveTowards(transform.position, otherTarget.position, step);
+            Vector3 direction = otherTarget.position - transform.position;
         }
     }
 
