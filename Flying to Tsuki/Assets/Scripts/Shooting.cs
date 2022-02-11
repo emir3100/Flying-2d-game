@@ -10,10 +10,14 @@ public class Shooting : MonoBehaviour
     public float BulletForce = 20f;
     public float FireRate = 2f;
     public AudioClip BulletSound;
-
-    private Vector3 shootDirection;
+    private Rigidbody2D rb;
+    private Vector2 shootDirection;
     private float nextTimeToShoot = 0f;
 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     private void Update()
     {
@@ -32,9 +36,8 @@ public class Shooting : MonoBehaviour
     {
         GameManager.Instance.AudioSource.PlayOneShot(BulletSound);
         shootDirection = Input.mousePosition;
-        shootDirection.z = 0.0f;
         shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
-        shootDirection = shootDirection - transform.position;
+        shootDirection = (shootDirection- rb.position).normalized;
 
         var bulletInstance = Instantiate(BulletPrefab.GetComponent<Rigidbody2D>(), transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
         bulletInstance.velocity = new Vector2(shootDirection.x * BulletForce, shootDirection.y * BulletForce);

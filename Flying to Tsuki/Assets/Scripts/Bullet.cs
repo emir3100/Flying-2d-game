@@ -9,7 +9,6 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("method called!");
         if (collision.gameObject.tag == "Enemy")
         {
             Instantiate(HitEffect, transform.position, Quaternion.identity);
