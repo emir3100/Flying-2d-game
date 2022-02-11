@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float PlayerSpeed;
+    public Joystick Joystick;
     private Rigidbody2D rb;
     private Vector2 playerDirection;
     private Animator animator;
@@ -17,8 +18,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        float verticalMove = Input.GetAxisRaw("Vertical");
-        float horizontalMove = Input.GetAxisRaw("Horizontal");
+        float verticalMove = Joystick.Vertical;
+        float horizontalMove = Joystick.Horizontal;
         playerDirection = new Vector2(horizontalMove, verticalMove).normalized;
 
         animator.SetFloat("Horizontal", horizontalMove);

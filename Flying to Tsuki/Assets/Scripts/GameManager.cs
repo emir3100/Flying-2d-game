@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Text MenuScoreText;
     public Text MenuHighestScoreText;
     public GameObject Menu;
+    public GameObject[] MovementPanel;
 
     public int MaxSpawnSimultaneously;
     public float EnemySpawnRate;
@@ -114,6 +116,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("hs", highScore);
 
         Menu.SetActive(true);
+        MovementPanel.ToList().ForEach(x => x.SetActive(false));
         PointsText.enabled = false;
         MenuScoreText.text = $"SCORE: {Points}";
         MenuHighestScoreText.text = $"BEST: {PlayerPrefs.GetInt("hs").ToString()}";
