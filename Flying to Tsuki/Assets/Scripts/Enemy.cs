@@ -61,6 +61,8 @@ public class Enemy : MonoBehaviour
             this.gameObject.GetComponent<Collider2D>().isTrigger = true;
             transform.position = Vector2.MoveTowards(transform.position, otherTarget.position, step);
             Vector3 direction = otherTarget.position - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            rb.rotation = angle;
         }
     }
 
