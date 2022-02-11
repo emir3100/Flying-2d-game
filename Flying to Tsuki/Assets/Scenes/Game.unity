@@ -1743,7 +1743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14954e977e102324586f3c2501a23381, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnEnemy: 0
+  SpawnEnemy: 1
   Points: 0
   PointsText: {fileID: 1012948083}
   MenuScoreText: {fileID: 1340366044}
@@ -1751,7 +1751,6 @@ MonoBehaviour:
   Menu: {fileID: 5006769}
   MovementPanel:
   - {fileID: 501575340}
-  - {fileID: 0}
   MaxSpawnSimultaneously: 1
   EnemySpawnRate: 4
   PointsThreshold: 2
@@ -2021,6 +2020,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5316335609129391132, guid: 5de63eeb81cda0f4886caee3fc79c016, type: 3}
+      propertyPath: BulletForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5316335609129391132, guid: 5de63eeb81cda0f4886caee3fc79c016, type: 3}
       propertyPath: IgnoreTouch.m_Bits
       value: 32
       objectReference: {fileID: 0}
@@ -2031,6 +2034,14 @@ PrefabInstance:
     - target: {fileID: 5802974424366694210, guid: 5de63eeb81cda0f4886caee3fc79c016, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.7404945
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819364805789836201, guid: 5de63eeb81cda0f4886caee3fc79c016, type: 3}
+      propertyPath: m_Radius
+      value: 0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819364805789836201, guid: 5de63eeb81cda0f4886caee3fc79c016, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.48
       objectReference: {fileID: 0}
     - target: {fileID: 6482953268612129523, guid: 5de63eeb81cda0f4886caee3fc79c016, type: 3}
       propertyPath: m_IsActive
