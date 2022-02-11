@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindWithTag("Player").transform;
         oldEnemySpawnRate = EnemySpawnRate;
         Menu.SetActive(false);
+        PointsText.enabled = true;
     }
 
     private void Update()
@@ -100,7 +102,7 @@ public class GameManager : MonoBehaviour
 
     private int GetRamdomAmount(int maxSpawnSimultaneously)
     {
-        return Random.Range(1, maxSpawnSimultaneously + 1);
+        return UnityEngine.Random.Range(1, maxSpawnSimultaneously + 1);
     }
 
     public IEnumerator ShowMenu(float length = 1.5f)
@@ -126,7 +128,7 @@ public class GameManager : MonoBehaviour
 
     public void MenuButton()
     {
-        int i = SceneManager.GetActiveScene().buildIndex;
-        Application.LoadLevel(i);
+        Application.LoadLevel(0);
     }
+
 }
