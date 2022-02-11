@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
+using System.Linq;
 
 public class Shooting : MonoBehaviour
 {
     public GameObject BulletPrefab;
-    public Rigidbody2D ShootPoint;
     public float BulletForce = 20f;
     public float FireRate = 2f;
     public AudioClip BulletSound;
-    public Joystick Joystick;
-    //private Vector2 shootDirection;
+    private Vector2 shootDirection;
     private float nextTimeToShoot = 0f;
     private Rigidbody2D rb;
+    public bool canShoot;
 
     private void Start()
     {
@@ -23,9 +25,9 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
-        if(Time.time >= nextTimeToShoot)
+        if (Time.time >= nextTimeToShoot)
         {
-            if (Joystick.Horizontal >= 0.01f || Joystick.Vertical >= 0.01f || Joystick.Horizontal <= -0.01f || Joystick.Vertical <= -0.01f)
+            if (Input.GetButton("Fire1") && canShoot)
             {
                 Shoot();
                 nextTimeToShoot = Time.time + 1f / FireRate;
@@ -36,18 +38,43 @@ public class Shooting : MonoBehaviour
     private void Shoot()
     {
         GameManager.Instance.AudioSource.PlayOneShot(BulletSound);
+        shootDirection = Input.mousePosition;
+        shootDirection = Camera.main.ScreenToWorldPoint(shootDirection);
+        shootDirection = shootDirection - rb.position;
 
-        var bullet = Instantiate(BulletPrefab, transform.position, ShootPoint.transform.rotation);
-        var bulletRB = bullet.GetComponent<Rigidbody2D>();
-        bulletRB.AddForce(ShootPoint.transform.up * BulletForce, ForceMode2D.Impulse);
-        
-
-
+        var bulletInstance = Instantiate(BulletPrefab.GetComponent<Rigidbody2D>(), transform.position, Quaternion.Euler(new Vector3(0, 0, 0))) as Rigidbody2D;
+        bulletInstance.velocity = new Vector2(shootDirection.x * BulletForce, shootDirection.y * BulletForce);
     }
 
     private void FixedUpdate()
     {
-        float angle = Mathf.Atan2(Joystick.Direction.y, Joystick.Direction.x) * Mathf.Rad2Deg - 90f;
-        ShootPoint.rotation = angle;
+        //if (Input.touchCount > 0)
+        //{
+
+        //foreach (var item in Input.touches)
+        //{
+        //    Debug.Log($"phaes:{item.phase}, finger:{item.fingerId}");
+        //}
+        //    var finger2 = Input.GetTouch(1);
+
+        //    if (EventSystem.current.IsPointerOverGameObject(finger2.fingerId) && !EventSystem.current.IsPointerOverGameObject(finger1.fingerId))
+        //        canShoot = false;
+        //    else
+        //        canShoot = true;
+
+        //    if (finger2.phase == TouchPhase.Ended)
+        //        canShoot = false;
+
+        //}
+
+            //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) || Input.GetTouch(0).phase == TouchPhase.Moved)
+            //{
+            //}
+        //Debug.Log(Input.GetTouch(0).phase);
+
+
     }
+
+
+
 }

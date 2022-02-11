@@ -9,6 +9,7 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    public bool SpawnEnemy;
     public int Points = 0;
     private int highScore;
     public Text PointsText;
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         PointsText.text = Points.ToString();
 
-        if(!PlayerDead)
+        if(!PlayerDead && SpawnEnemy)
         {
             if (Time.time > nextSpawn)
             {
